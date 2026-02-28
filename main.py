@@ -1,4 +1,3 @@
-import logging
 import torch
 import sys
 from utils import fetch_content
@@ -6,7 +5,8 @@ from query import query
 from embed import embed
 from langchain_openai import ChatOpenAI
 
-logging.getLogger("huggingface_hub").setLevel(logging.ERROR)
+import os
+os.environ["HF_HUB_DISABLE_UNAUTHENTICATED_WARNING"] = "1"
 
 llm_url = "http://localhost:1234/v1"
 llm_model = "llama-3.2-3b-instruct"
@@ -28,7 +28,9 @@ print("<--- Chat begins --->")
 
 text = "Summarize the document"
 
+print("Summary of the paper\n")
 while text != "exit":
-    answer = query(text, llm=llm, vectorstore=vectorstore)
-    print(answer)
-    text = input("Query (enter exit to quit): ").strip()
+    if text != "":
+        answer = query(text, llm=llm, vectorstore=vectorstore)
+        print(answer)
+    text = input("\nQuery (enter exit to quit): ").strip()

@@ -5,6 +5,9 @@ from transformers import AutoTokenizer, AutoModel
 from langchain.embeddings.base import Embeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
+from transformers.utils import logging
+
+logging.set_verbosity_error()
 
 model_name = "microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext"
 
